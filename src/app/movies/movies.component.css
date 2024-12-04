@@ -1,0 +1,60 @@
+.movie-item {
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.movie-item img {
+    object-fit: cover;
+    object-position: center;
+    height: 400px;
+    width: 100%;
+    -moz-border-radius-topleft: 15px;
+    -moz-border-radius-topright: 15px;
+    -webkit-border-top-left-radius: 15px;
+    -webkit-border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.movie-item:hover {
+    -webkit-box-shadow: 0 1px 8px 5px #555555;
+    -moz-box-shadow: 0 1px 8px 5px #555555;
+    box-shadow: 0 1px 8px 5px #555555;
+}
+
+.movie-item-bg-1{
+    background-color: #a00709;
+}
+
+.movie-item-bg-2{
+    background-color: #a16b09;
+}
+
+.image-placeholder {
+    width: 200px;
+    height: 300px;
+    display: inline-block;
+    background-image: url('https://via.placeholder.com/200x300?text=Loading...');
+    background-size: cover;
+    background-position: center;
+}
+
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    background: none;
+}
+
+.image-not-loaded-placeholder {
+    display: none;
+    color: #666666;
+    height: 300px;
+}
+
+.image-loading-placeholder {
+    display: none;
+    height: 300px;
+    background-image: url('/placeholder.png');
+}

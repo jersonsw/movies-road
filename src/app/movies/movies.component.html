@@ -1,1 +1,60 @@
-<p>movies works!</p>
+<div class="flex flex-col w-12/12 margin-auto justify-center">
+    <div class="flex flex-row px-2 w-12/12 justify-between border-box">
+        <h3>Category: Popular</h3>
+        <div class="flex flex-col gap-2" [formGroup]="moviesFiltersForm">
+            <div class="flex flex-row gap-2">
+                <label for="languages" class="font-semibold">Language</label>
+                <select formControlName="language" name="languages" id="languages">
+                    @for (lang of languages; track lang.id) {
+                        <option [ngValue]="lang.id">{{ lang.name }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="flex flex-row gap-2">
+                <label for="bg-rules" class="font-semibold">Rule</label>
+                <select formControlName="bgRule" name="bg-rules" id="bg-rules">
+                    @for (rule of bgRules; track rule.id) {
+                        <option [ngValue]="rule.id">{{ rule.name }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    @if (allMovies.length) {
+        <div class="spinner" *ngIf="loading"></div>
+        <div class="flex flex-row flex-wrap w-12/12 mt-5"
+             infiniteScroll
+             [infiniteScrollDistance]="2"
+             [infiniteScrollThrottle]="50"
+             (scrolled)="onScroll()"
+        >
+            @for (movie of allMovies; track movie.id; let index = $index) {
+                <div class="flex border-box w-12/12 sm:w-6/12 md:w-4/12 lg:w-3/12 xl:w-2.4/12 p-2">
+                    <div [style.background-color]="getRuleColor(index)"
+                         class="flex flex-col movie-item w-12/12 border-box">
+
+                        <div #loadingPlaceholder class="w-12/12 image-loading-placeholder"></div>
+
+                        <div #noImagePlaceholder
+                             class="image-not-loaded-placeholder w-12/12 bg-slate-200 items-center justify-center"></div>
+
+                        <img class="w-12/12"
+                             height="300px"
+                             #movieImage
+                             (load)="onImageLoad(loadingPlaceholder)"
+                             (error)="onErrorLoadingImage(movieImage, loadingPlaceholder, noImagePlaceholder)"
+                             [src]="imagesPath + '/w200/' + movie.poster_path" [alt]="movie.title"/>
+                        <div class="flex flex-row px-1 justify-between">
+                            <p class="w-8/12">{{ movie.title | uppercase }}</p>
+                            <p>{{ movie.release_date | date:'YYYY' }}</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    } @else {
+        <p class="flex items-center justify-center p-4">No movies to show</p>
+    }
+</div>

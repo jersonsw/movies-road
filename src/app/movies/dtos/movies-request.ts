@@ -1,4 +1,6 @@
-export interface MoviesRequest<T> {
+export interface MoviesRequest {
+    category: string;
+    language: string;
     page: number;
-    size: number;
+    bgRule: string;
 }

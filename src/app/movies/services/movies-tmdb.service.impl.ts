@@ -1,16 +1,27 @@
 import {MoviesService} from './movies.service';
 import {Observable, of} from 'rxjs';
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {Pagination} from '../../commons/dtos/pagination';
+import {MoviesRequest} from '../dtos/movies-request';
+import {Movie} from '../dtos/movie';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MoviesTMDBImpl implements MoviesService{
-    private httpClient = inject(HttpClient);
+export class MoviesTmdbServiceImpl implements MoviesService {
 
-    find(): Observable<any> {
-        return this.httpClient.get(environment.apiUrl, { observe: 'response' });
+    constructor(private readonly httpClient: HttpClient) {
+    }
+
+    findAll(req: MoviesRequest): Observable<Pagination<Movie>> {
+        const endpoint = this.buildEndpoint(req);
+
+        return this.httpClient.get<Pagination<Movie>>(endpoint);
+    }
+
+    private buildEndpoint(req: MoviesRequest): string {
+        return `${environment.apiUrl}/${req.category}?language=${req.language}&api_key=${environment.apiKey}&page=${req.page}`;
     }
 }

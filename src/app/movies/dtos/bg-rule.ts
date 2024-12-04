@@ -1,4 +1,4 @@
-export interface Language {
+export interface BgRule {
     id: string;
     name: string;
 }

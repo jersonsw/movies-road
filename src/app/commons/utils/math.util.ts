@@ -11,7 +11,7 @@ export const getFibonacci = (n: number): number => {
     return b;
 }
 
-export const isPrime = (num: number): boolean => {
+export const isPrimeNumber = (num: number): boolean => {
     if (num <= 1) return false;
     if (num <= 3) return true;
     if (num % 2 === 0 || num % 3 === 0) return false;
